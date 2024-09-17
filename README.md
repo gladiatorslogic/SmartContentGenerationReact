@@ -1,0 +1,2 @@
+# SmartContentGenerationReact
+SmartContentGenerationReact
