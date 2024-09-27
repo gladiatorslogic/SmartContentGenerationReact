@@ -167,7 +167,7 @@ const Application = () => {
             });
             //debugger    
             
-            let sanitizedText = JSON.parse(respText).text.replace('```html', '');
+            let sanitizedText = JSON.parse(respText).text.replace('``` html', '');
             sanitizedText = sanitizedText.replace('```', '')
             
             setContent(sanitizedText)            

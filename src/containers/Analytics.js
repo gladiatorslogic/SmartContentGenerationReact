@@ -60,7 +60,7 @@ const Analytics = () => {
               <Route target="_blank" href="https://gladiatorslogic.github.io/Customer-Feedback-Video-Analysis" element={<MyHtmlPage />} />
             </Routes>
             <br></br>
-            ( This will provide us concise and informative analysis of one or multiple feedback provided from customers over video and same can be shared across analytics team for further analysis)
+            ( This will provide us concise and informative analysis of one or multiple feedback provided from customers over video and same can be shared across analytics team for further analysis )
           </div>
         </Router>
       );
