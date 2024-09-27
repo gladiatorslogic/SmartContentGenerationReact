@@ -36,6 +36,14 @@ export default function ResponsiveDialog({showDialog, closeDialog, showLocal,ima
         fullScreen={fullScreen}
         open={showDialog}
         onClose={handleClose}
+        fullWidth={true}      // This ensures the dialog takes the full width available
+        maxWidth={false}      // Disable maxWidth to allow custom sizing
+        PaperProps={{
+            sx: {
+              width: '90%',     // Set custom width in percentage or pixels, e.g., '600px'
+              maxWidth: 'none', // Optionally, set a maximum width
+            }
+        }}
         aria-labelledby="responsive-dialog-title"
       >
         <DialogContent>
@@ -60,7 +68,6 @@ export default function ResponsiveDialog({showDialog, closeDialog, showLocal,ima
                 )}
             </div>
            {htmlContent}
-            <img src={imageUrl} alt="Image from API" height={500} width={400}/>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
