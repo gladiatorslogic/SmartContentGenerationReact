@@ -8,6 +8,8 @@ import CardField from '../components/CardField';
 import ResponsiveDialog from '../components/ResponsiveDialog';
 import { getGeneralQueryResp } from '../apis.js';
 import gemini from'./google-gemini-icon.png';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+
 
 const Analytics = () => {
 
@@ -51,75 +53,27 @@ const Analytics = () => {
     }
 
     return (
-        <Box sx={{ flexGrow: 1, margin:'0rem 2rem' }}>
-            <Backdrop
-                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                open={pageLoading}
-            >
-                <CircularProgress color="primary" />
-            </Backdrop>
-            <Grid container spacing={2} direction="row" justifyContent='space-between'>
-                <Grid item md={7} xs={12}>
-                    <Grid container style={{marginTop:'.5rem'}}>
-                        <Grid item xs={12}>
-                            {/* <TextAreaField label='Query Details'/> */}
-                            <InputText 
-                                label={'Prompt'} 
-                                multiline={true}
-                                // width={matcheSmall ? '90%': "100%"}
-                                handleChange={val=> handleQueryInfo(val)}
-                                startAdornment={<InputAdornment position="start"><Article fontSize='large' color='primary' /></InputAdornment>}
-                            />
-                        </Grid>
-                    </Grid>
-
-                    <Grid container style={{marginTop:'3rem'}}>
-                        <Grid item xs={12}>
-                            <SliderValue 
-                                label="Creativity" 
-                                handleChange={val => handleCreativityValue(val)}
-                                className="slider"
-                                tooltip={<><strong>This the creativity slider.</strong><p>Please move the slider value to the creativity level you want. Higher value corresponds to more creative. For very formal communication you can select lower level of creativity.</p></>}
-                            />
-                        </Grid>
-                    </Grid>                    
-                </Grid>
-                <Grid item md={5} xs={12}>
-                    {!pageLoading &&<CardField width='90%' label="Prompt History" values={queryData}/> }
-                </Grid>
-
-                <Grid item xs={12}>
-                    <Divider style={{marginTop:'2rem', marginBottom:'2rem'}} />
-
-                    <LoadingButton
-                            onClick={handleClick}
-                            loading={loading}
-                            loadingPosition="end"
-                            endIcon={<img src={gemini} alt='Gemini' height={40} />}
-                            variant="contained"
-                            color='primary'
-                            style={{width: '12rem', fontSize:'1rem', justifyContent:'space-around'}}        
-                        >
-                        <span>Submit</span>
-                    </LoadingButton>
-                    <InputLabel
-                        style={{
-                            fontSize:'.8rem',
-                            color: '#d32f2f'
-                        }}
-                    >
-                        {pageError}
-                    </InputLabel>
-                    <ResponsiveDialog 
-                        showDialog={show}
-                        content = {content}
-                        htmlContent={ <div dangerouslySetInnerHTML={{ __html:content }} />}
-                        closeDialog={() => setShow(false)}
-                    />
-                </Grid>
-            </Grid>
-        </Box>
-    );
+        <Router>
+          <div> 
+            <Link to="https://gladiatorslogic.github.io/Customer-Feedback-Video-Analysis">Go to Feedback Analysis Done</Link>
+            <Routes>       
+              <Route target="_blank" href="https://gladiatorslogic.github.io/Customer-Feedback-Video-Analysis" element={<MyHtmlPage />} />
+            </Routes>
+          </div>
+        </Router>
+      );
+      function MyHtmlPage() {
+        const [htmlContent, setHtmlContent] = useState(null);
+      
+       
+        if (!htmlContent) {
+          return <div>Loading...</div>;
+        }
+      
+        return (
+          <div dangerouslySetInnerHTML={{ __html: "https://gladiatorslogic.github.io/Customer-Feedback-Video-Analysis/" }} />
+        );
+      }
 }
 
 export default Analytics;
