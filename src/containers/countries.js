@@ -1,5 +1,13 @@
 // Sample country file for 
 export const countries = {
+    "United States": {
+        "country": "USA",
+        "language": ["English"]
+    },
+    "United Kingdom": {
+        "country": "UK",
+        "language": ["English"]
+    },
     "Australia": {
         "country": "AU",
         "language": ["English"]
