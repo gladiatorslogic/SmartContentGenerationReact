@@ -24,7 +24,7 @@ const Application = () => {
     const [content, setContent] = useState('')
     const [pageLoading, setPageLoading] = useState(false);
     const [origialText, setOriginalText] = useState('');
-    const [origialImg, setOriginalImg] = useState('');
+    const [originalImg, setOriginalImg] = useState('');
     const [creativity, setCreativity] = useState(0.5);
     const [selectedProducts, setSelectedProducts] = useState([]);
     const [convertedText, setConvertedText] = useState('');
@@ -155,10 +155,10 @@ const Application = () => {
             });
             //debugger    
             
-            let sanitizedText = respText.replace('```html', '');
+            let sanitizedText = JSON.parse(respText).text.replace('```html', '');
             sanitizedText = sanitizedText.replace('```', '')
             
-            setContent(JSON.parse(respText).text)            
+            setContent(sanitizedText)            
             setOriginalImg(JSON.parse(respText).image);
             setShow(true);
         } catch (error){
@@ -280,7 +280,7 @@ const Application = () => {
                         customerLanguage={language}
                         customerCountry={country}
                         showLocal={showLocal}
-                        imageUrl ={setOriginalImg}
+                        imageUrl ={originalImg}
                         htmlContent={
                             <div dangerouslySetInnerHTML={{ __html: content }} />}
                         closeDialog={() => setShow(false)}

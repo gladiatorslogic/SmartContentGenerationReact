@@ -1,6 +1,6 @@
 //const uri = 'http://35.244.22.147:8081';
-const uri = 'http://127.0.0.1:8081';
- //const uri = 'https://smartcontentgenerationpy-34529963868.asia-south1.run.app'
+//const uri = 'http://127.0.0.1:8081';
+ const uri = 'https://smartcontentgenerationpy-34529963868.asia-south1.run.app'
 export const getGeneralQueryResp = async({data, creativity}) => {
     const url = `${uri}/send_data`;
     const response = await fetch(url, {
