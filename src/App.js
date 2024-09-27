@@ -40,12 +40,12 @@ function App() {
               <TabList onChange={handleChange} aria-label="lab API tabs example">
                 <Tab label="Customer Focused" value="1" />
                 <Tab label={'General Context'} value="2" />
-                <Tab label={'Data Analytics'} value="3" />
+                <Tab label={'Customer Feedback'} value="3" />
               </TabList>
             </Box>
             <TabPanel value="1">{<Application />}</TabPanel>
             <TabPanel value="2">{<SimpleApp />}</TabPanel>
-            <TabPanel value="3">{<SimpleApp />}</TabPanel>
+            <TabPanel value="3">{<Analytics />}</TabPanel>
           </TabContext>
         </Grid>
       </Grid>

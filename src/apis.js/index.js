@@ -1,6 +1,6 @@
 //const uri = 'http://35.244.22.147:8081';
- //const uri = 'http://127.0.0.1:8081';
- const uri = 'https://smartcontentgenerationpy-34529963868.asia-south1.run.app'
+const uri = 'http://127.0.0.1:8081';
+ //const uri = 'https://smartcontentgenerationpy-34529963868.asia-south1.run.app'
 export const getGeneralQueryResp = async({data, creativity}) => {
     const url = `${uri}/send_data`;
     const response = await fetch(url, {
@@ -20,7 +20,7 @@ export const getGeneralQueryResp = async({data, creativity}) => {
     
 }
 
-export const getCutomerQueryResp = async ({prompt, productId, customerId, creativity, customerCountry}) => {
+export const getCutomerQueryResp = async ({prompt,img_prompt, productId, customerId, creativity, customerCountry}) => {
   const url = `${uri}/send_customer_data`;
   const response = await fetch(url, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -35,13 +35,17 @@ export const getCutomerQueryResp = async ({prompt, productId, customerId, creati
       referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
       body: JSON.stringify({
         "custom_prompt": prompt, 
+        "custom_img_prompt":img_prompt,
         "product_id": productId, 
         "customer_id": customerId,
         "customer_country": customerCountry, 
         "temperature": creativity
       }), // body data type must match "Content-Type" header
     });
+    //const resp = await response.json();
     const resp = await response.text();
+    
+    
     return resp; // parses JSON response into native JavaScript objects
   
 }

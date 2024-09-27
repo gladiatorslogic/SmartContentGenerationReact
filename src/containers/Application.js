@@ -24,6 +24,7 @@ const Application = () => {
     const [content, setContent] = useState('')
     const [pageLoading, setPageLoading] = useState(false);
     const [origialText, setOriginalText] = useState('');
+    const [origialImg, setOriginalImg] = useState('');
     const [creativity, setCreativity] = useState(0.5);
     const [selectedProducts, setSelectedProducts] = useState([]);
     const [convertedText, setConvertedText] = useState('');
@@ -33,6 +34,7 @@ const Application = () => {
     const [customerLoading, setCustomerLoading] = useState(false);
     const [customerError, setCustomerError] = useState('');
     const [pageError, setPageError] = useState('');
+    const [imgQuery, setImgQueryData] = useState([]);
     
     const getCustomerData = async (cust) => {
         setContent('');
@@ -47,6 +49,7 @@ const Application = () => {
         setCustomerError('');
         if (cust && cust.length > 0) {
             const customers = await getCustomers(cust);
+            //debugger
             if(customers.length > 0){
                 customers.forEach(cust => {
                     if(cust.cust_geography){
@@ -95,6 +98,13 @@ const Application = () => {
         setOriginalText('');
         setShowLocal(false);
     }
+    const handleImageQueryInfo = (val) => {
+        setImgQueryData(val)
+        setContent('');
+        setConvertedText('');
+        setOriginalText('');
+        setShowLocal(false);
+    }
 
     const handleCustomerInfo = (val) => {
         setSelectedCustomerId(val);
@@ -102,8 +112,8 @@ const Application = () => {
             if (cust.customer_id === val) {
                 setProducts(cust.sug_products.map(prd => {
                     return {
-                        id: prd.SugProdID,
-                        value: prd.SugProdName
+                        id: prd.PrdID,
+                        value: prd.PrdName
                     }
                 }));
                 setCountry(cust.cust_country);
@@ -130,19 +140,26 @@ const Application = () => {
         if(query){
             setQueryData([...queryData, query]);
         }
+        if(imgQuery){
+            setImgQueryData([...queryData, imgQuery]);
+        }
         setLoading(true);
         try {
             let respText = await getCutomerQueryResp({
                  prompt: query, 
+                 img_prompt: imgQuery, 
                  creativity: creativity, 
                  productId: selectedProducts, 
                  customerId: selectedCustomerId,
                  customerCountry: country
             });
-            setOriginalText(respText);
+            //debugger    
+            
             let sanitizedText = respText.replace('```html', '');
             sanitizedText = sanitizedText.replace('```', '')
-            setContent(sanitizedText);
+            
+            setContent(JSON.parse(respText).text)            
+            setOriginalImg(JSON.parse(respText).image);
             setShow(true);
         } catch (error){
             setPageError('An error occured. Please try again.')        
@@ -218,6 +235,13 @@ const Application = () => {
                                 handleChange={val => handleQueryInfo(val)}
                                 startAdornment={<InputAdornment position="start"><Article fontSize='large' color='primary'/></InputAdornment>}
                             />
+                             <InputText
+                                label={'Input for the Image Generation'}
+                                multiline={true}
+                                width='100%'
+                                handleChange={val => handleImageQueryInfo(val)}
+                                startAdornment={<InputAdornment position="start"><Article fontSize='large' color='primary'/></InputAdornment>}
+                            />
                         </Grid>
                         <Grid item xs={12}>
                             {!pageLoading && <CardField label="Instructions History" values={queryData} />}
@@ -256,8 +280,9 @@ const Application = () => {
                         customerLanguage={language}
                         customerCountry={country}
                         showLocal={showLocal}
+                        imageUrl ={setOriginalImg}
                         htmlContent={
-                            showLocal ? <div dangerouslySetInnerHTML={{ __html: convertedText }} /> :<div dangerouslySetInnerHTML={{ __html: content }} />}
+                            <div dangerouslySetInnerHTML={{ __html: content }} />}
                         closeDialog={() => setShow(false)}
                     />
                 </Grid>

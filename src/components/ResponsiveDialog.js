@@ -9,7 +9,7 @@ import { FormControlLabel, Switch } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import logo from'../Travel with Pride.png';
 
-export default function ResponsiveDialog({showDialog, closeDialog, showLocal, htmlContent, converttoLocal, customerLanguage, customerCountry}) {
+export default function ResponsiveDialog({showDialog, closeDialog, showLocal,imageUrl, htmlContent, converttoLocal, customerLanguage, customerCountry}) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   const smallScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -19,7 +19,7 @@ export default function ResponsiveDialog({showDialog, closeDialog, showLocal, ht
   };
 
   const [local, setLocal] = useState(false);
-
+  const imageSrc = 'data:image/png;base64,${htmlContent}';
   useEffect(() => {
     setLocal(showLocal);
   }, [showLocal]);
@@ -46,7 +46,9 @@ export default function ResponsiveDialog({showDialog, closeDialog, showLocal, ht
                     justifyContent: 'space-between',
                     alignItems: 'left'
                   }}>
-                <img src={logo} alt='Travel with Pride' height={40} />
+                <img src={logo} alt='Travel with Pride' height={40} />           
+            
+                
                 {customerLanguage && customerLanguage !== 'English' && (
                   <FormControlLabel
                     style={{}}
@@ -58,6 +60,7 @@ export default function ResponsiveDialog({showDialog, closeDialog, showLocal, ht
                 )}
             </div>
            {htmlContent}
+            <img src={imageUrl} alt="Image from API" height={500} width={400}/>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
