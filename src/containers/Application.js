@@ -24,7 +24,6 @@ const Application = () => {
     const [content, setContent] = useState('')
     const [pageLoading, setPageLoading] = useState(false);
     const [origialText, setOriginalText] = useState('');
-    const [originalImg, setOriginalImg] = useState('');
     const [creativity, setCreativity] = useState(0.5);
     const [selectedProducts, setSelectedProducts] = useState([]);
     const [convertedText, setConvertedText] = useState('');
@@ -159,7 +158,7 @@ const Application = () => {
             sanitizedText = sanitizedText.replace('```', '')
             
             setContent(sanitizedText)            
-            setOriginalImg(JSON.parse(respText).image);
+            //setOriginalImg(JSON.parse(respText).image);
             setShow(true);
         } catch (error){
             setPageError('An error occured. Please try again.')        
@@ -280,7 +279,7 @@ const Application = () => {
                         customerLanguage={language}
                         customerCountry={country}
                         showLocal={showLocal}
-                        imageUrl ={originalImg}
+                        maxWidth={false} // Set this to false to remove default maxWidth constraint
                         htmlContent={
                             <div dangerouslySetInnerHTML={{ __html: content }} />}
                         closeDialog={() => setShow(false)}
