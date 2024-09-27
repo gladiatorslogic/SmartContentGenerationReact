@@ -20,7 +20,7 @@ export const getGeneralQueryResp = async({data, creativity}) => {
     
 }
 
-export const getCutomerQueryResp = async ({prompt,img_prompt, productId, customerId, creativity, customerCountry}) => {
+export const getCutomerQueryResp = async ({prompt,img_prompt, email_prompt, productId, customerId, creativity, customerCountry}) => {
   const url = `${uri}/send_customer_data`;
   const response = await fetch(url, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -36,7 +36,8 @@ export const getCutomerQueryResp = async ({prompt,img_prompt, productId, custome
       body: JSON.stringify({
         "custom_prompt": prompt, 
         "custom_img_prompt":img_prompt,
-        "product_id": productId, 
+        "email_prompt":email_prompt,
+        "product_id": productId,
         "customer_id": customerId,
         "customer_country": customerCountry, 
         "temperature": creativity

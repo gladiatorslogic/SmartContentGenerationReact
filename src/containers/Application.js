@@ -34,7 +34,8 @@ const Application = () => {
     const [customerError, setCustomerError] = useState('');
     const [pageError, setPageError] = useState('');
     const [imgQuery, setImgQueryData] = useState([]);
-    
+    const [emailQuery, setEmailQueryData] = useState([]);
+
     const getCustomerData = async (cust) => {
         setContent('');
         setConvertedText('');
@@ -105,6 +106,14 @@ const Application = () => {
         setShowLocal(false);
     }
 
+    const handleEmailQueryInfo = (val) => {
+        setEmailQueryData(val)
+        setContent('');
+        setConvertedText('');
+        setOriginalText('');
+        setShowLocal(false);
+    }
+
     const handleCustomerInfo = (val) => {
         setSelectedCustomerId(val);
         customers.forEach(cust => {
@@ -142,12 +151,16 @@ const Application = () => {
         if(imgQuery){
             setImgQueryData([...queryData, imgQuery]);
         }
+        if(emailQuery){
+            setEmailQueryData([...queryData, emailQuery]);
+        }
         setLoading(true);
         try {
             let respText = await getCutomerQueryResp({
                  prompt: query, 
                  img_prompt: imgQuery, 
-                 creativity: creativity, 
+                 email_prompt: emailQuery,
+                 creativity: creativity,
                  productId: selectedProducts, 
                  customerId: selectedCustomerId,
                  customerCountry: country
@@ -243,7 +256,13 @@ const Application = () => {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            {!pageLoading && <CardField label="Instructions History" values={queryData} />}
+                            <InputText
+                                label={'Input for the email'}
+                                multiline={true}
+                                width='100%'
+                                handleChange={val => handleEmailQueryInfo(val)}
+                                startAdornment={<InputAdornment position="start"><Article fontSize='large' color='primary'/></InputAdornment>}
+                            />
                         </Grid>
                     </Grid>
                 </Grid>
