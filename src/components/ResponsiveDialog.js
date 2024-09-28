@@ -7,7 +7,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { FormControlLabel, Switch } from '@material-ui/core';
 import { useEffect, useState } from 'react';
-import logo from'./TravelwithPride.png';
+import logo from './TravelwithPride.png';
 
 export default function ResponsiveDialog({showDialog, closeDialog, showLocal,imageUrl, htmlContent, converttoLocal, customerLanguage, customerCountry}) {
   const theme = useTheme();
